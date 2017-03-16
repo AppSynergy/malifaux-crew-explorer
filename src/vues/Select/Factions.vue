@@ -33,6 +33,7 @@
         _.contains @selectedFactions, faction
 
   export default SelectFactions
+
 </script>
 
 <style lang="sass">

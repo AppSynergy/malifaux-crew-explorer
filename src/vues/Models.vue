@@ -6,20 +6,25 @@
       v-on:selectedFactions="selectFactions"
     ></select-factions>
 
-    <select-leader
-      :factions="selectedFactions"
-      :masters="masters"
-      :henchmen="henchmen"
-      v-on:selectedLeader="selectLeader"
-    ></select-leader>
-
-    <select-crew
-      :leader="selectedLeader"
-      :henchmen="henchmen[selectedLeaderFaction]"
-      :enforcers="enforcers[selectedLeaderFaction]"
-      :minions="minions[selectedLeaderFaction]"
-      :peons="peons[selectedLeaderFaction]"
-    ></select-crew>
+    <div class="row">
+      <div class="col col-xs-6">
+        <select-leader
+          :factions="selectedFactions"
+          :masters="masters"
+          :henchmen="henchmen"
+          v-on:selectedLeader="selectLeader"
+        ></select-leader>
+      </div>
+      <div class="col col-xs-6">
+        <select-crew
+          :leader="selectedLeader"
+          :henchmen="henchmen[selectedLeaderFaction]"
+          :enforcers="enforcers[selectedLeaderFaction]"
+          :minions="minions[selectedLeaderFaction]"
+          :peons="peons[selectedLeaderFaction]"
+        ></select-crew>
+      </div>
+    </div>
 
   </div>
 </template>

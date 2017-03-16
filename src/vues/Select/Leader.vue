@@ -8,50 +8,52 @@
       <input type="text" class="form-control" v-model="soulstones">
     </form>
 
-    <table class="table table-bordered table-hover">
-      <thead>
-        <tr>
-          <th>Leader</th>
-          <th>Cache</th>
-          <th>Keywords</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="leader in leaders"
-          v-on:click="selectLeader(leader)"
-          :class="{ selected: selectedLeader == leader }">
-          <td>{{ nameAndMaybeFaction(leader) }}</td>
-          <td>{{ leader.cache }}</td>
-          <td>{{ listAttributes(leader.attributes, ', ') }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <sortable-table
+      :headers="tableHeaders"
+      :data="tableData"
+      v-on:selectedRow="selectLeader"
+    ></sortable-table>
 
   </div>
 </template>
 
 <script lang="coffee">
+  import SortableTable from '../Element/SortableTable.vue'
 
   SelectLeader =
+
+    components: { SortableTable }
 
     props: [ 'masters', 'henchmen', 'factions' ]
 
     data: () ->
       soulstones: 50
       selectedLeader: null
+      tableHeaders: ['Leader', 'Cache', 'Keywords']
 
     computed:
+
       hasLeaders: () -> @leaders.length > 0
+
       leaders: () ->
         out = []
         if @soulstones > 25 then @filterByFaction @masters, out
         if @soulstones < 40 then @filterByFaction @henchmen, out
         _.flatten out
 
+      tableData: () ->
+        _.map @leaders, (leader) =>
+          [ leader.faction+":"+leader.name #ignored
+          , @nameAndMaybeFaction(leader)
+          , leader.cache
+          , @listAttributes(leader.attributes, ', ')
+          ]
+
     methods:
 
-        selectLeader: (leader) ->
-          @selectedLeader = leader
+        selectLeader: (row) ->
+          @selectedLeader = _.find @leaders, (x) ->
+            x.faction+":"+x.name == row[0]
           @$emit "selectedLeader", @selectedLeader
 
         filterByFaction: (models, results) ->

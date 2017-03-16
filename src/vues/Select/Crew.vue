@@ -3,35 +3,36 @@
 
     <h2>Select Crew</h2>
 
-    <table class="mt-4 table table-bordered table-hover">
-      <thead>
-        <tr>
-          <th>Model</th>
-          <th>Station</th>
-          <th>Cost</th>
-          <th>Keywords</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="model in crew">
-          <td>{{ model.name }}</td>
-          <td>{{ model.station }}</td>
-          <td>{{ model.cost }}</td>
-          <td>{{ listAttributes(model.attributes, ', ') }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <ul class="list-group mt-4">
+      <li class="list-group-item">
+        <strong>Leader: </strong>
+        <span class="pl-2">{{ leader.name }}</span>
+      </li>
+      <li class="list-group-item">
+        <strong>Faction: </strong>
+        <span class="pl-2">{{ leader.faction }}</span>
+      </li>
+    </ul>
+
+    <sortable-table
+      :headers="tableHeaders"
+      :data="tableData"
+    ></sortable-table>
 
   </div>
 </template>
 
 <script lang="coffee">
+  import SortableTable from '../Element/SortableTable.vue'
 
   SelectCrew =
+
+    components: { SortableTable }
 
     props: [ 'leader', 'minions', 'enforcers', 'henchmen', 'peons' ]
 
     data: () ->
+      tableHeaders: ['Models', 'Station', 'Cost', 'Keywords']
       stations: ["Henchman", "Enforcer", "Minion", "Peon"]
 
     computed:
@@ -43,6 +44,11 @@
           @addStation @minions, "Minion"
           @addStation @peons, "Peon"
         ]
+      tableData: () ->
+        _.map @crew, (model) =>
+          attrs = @listAttributes model.attributes, ', '
+          [ model.faction+":"+model.name,
+            model.name, model.station, model.cost, attrs ]
 
     methods:
 
