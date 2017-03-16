@@ -15,6 +15,10 @@
 
     <select-crew
       :leader="selectedLeader"
+      :henchmen="henchmen[selectedLeaderFaction]"
+      :enforcers="enforcers[selectedLeaderFaction]"
+      :minions="minions[selectedLeaderFaction]"
+      :peons="peons[selectedLeaderFaction]"
     ></select-crew>
 
   </div>
@@ -34,10 +38,14 @@
       models: ModelList
       selectedFactions: []
       selectedLeader: null
+      selectedLeaderFaction: null
 
     computed:
       masters: () -> @filterandSortModels 'Master'
       henchmen: () -> @filterandSortModels 'Henchman'
+      enforcers: () -> @filterandSortModels 'Enforcer'
+      minions: () -> @filterandSortModels 'Minion'
+      peons: () -> @filterandSortModels 'Peon'
       factions: () -> _.keys @masters
 
     methods:
@@ -58,6 +66,7 @@
 
       selectLeader: (leader) ->
         @selectedLeader = leader
+        @selectedLeaderFaction = leader.faction
 
   export default Models
 </script>

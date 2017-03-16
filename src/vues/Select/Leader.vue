@@ -1,5 +1,5 @@
 <template>
-  <div class="select-leader-vue mt-4">
+  <div class="select-leader-vue mt-4" v-if="hasLeaders">
 
     <h2>Select your leader</h2>
 
@@ -8,10 +8,10 @@
       <input type="text" class="form-control" v-model="soulstones">
     </form>
 
-    <table class="table table-bordered table-hover" v-if="hasLeaders">
+    <table class="table table-bordered table-hover">
       <thead>
         <tr>
-          <th>Name</th>
+          <th>Leader</th>
           <th>Cache</th>
           <th>Keywords</th>
         </tr>
