@@ -20,7 +20,7 @@
         <tr v-for="leader in leaders"
           v-on:click="selectLeader(leader)"
           :class="{ selected: selectedLeader == leader }">
-          <td>{{ leader.name }}</td>
+          <td>{{ nameAndMaybeFaction(leader) }}</td>
           <td>{{ leader.cache }}</td>
           <td>{{ listAttributes(leader.attributes, ', ') }}</td>
         </tr>
@@ -52,6 +52,7 @@
 
         selectLeader: (leader) ->
           @selectedLeader = leader
+          @$emit "selectedLeader", @selectedLeader
 
         filterByFaction: (models, results) ->
           _.map models, (factiongroup, faction) =>
@@ -59,6 +60,13 @@
               results.push factiongroup
             else
               results
+
+        nameAndMaybeFaction: (model) ->
+          dups = _.filter @leaders, (x) -> x.name == model.name
+          if dups.length > 1
+            model.name + ' (' + model.faction + ')'
+          else
+            model.name
 
         listAttributes: (atts, interp) ->
           _.reject atts, (x) ->

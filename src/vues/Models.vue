@@ -1,16 +1,21 @@
 <template>
   <div class="models-vue">
-    
+
     <select-factions
       :factions="factions"
       v-on:selectedFactions="selectFactions"
     ></select-factions>
-      
+
     <select-leader
       :factions="selectedFactions"
       :masters="masters"
       :henchmen="henchmen"
+      v-on:selectedLeader="selectLeader"
     ></select-leader>
+
+    <select-crew
+      :leader="selectedLeader"
+    ></select-crew>
 
   </div>
 </template>
@@ -19,22 +24,24 @@
   import ModelList from '../data/ModelList.coffee'
   import SelectFactions from './Select/Factions.vue'
   import SelectLeader from './Select/Leader.vue'
-  
-  Models = 
-    
-    components: { SelectFactions, SelectLeader }
-    
+  import SelectCrew from './Select/Crew.vue'
+
+  Models =
+
+    components: { SelectFactions, SelectLeader, SelectCrew }
+
     data: () ->
       models: ModelList
       selectedFactions: []
-        
+      selectedLeader: null
+
     computed:
       masters: () -> @filterandSortModels 'Master'
       henchmen: () -> @filterandSortModels 'Henchman'
-      factions: () -> _.keys @masters        
-          
+      factions: () -> _.keys @masters
+
     methods:
-      
+
       filterandSortModels: (attr) ->
         filteredModels = _.filter @models, (model) =>
           _.contains model.attributes, attr
@@ -42,11 +49,15 @@
         _.each filteredModels, (m) ->
           _.each m.factions, (f) ->
             out[f] = out[f] || []
-            out[f].push m
+            n = _.extend _.omit(m, 'factions'), { faction: f }
+            out[f].push n
         out
-            
+
       selectFactions: (factions) ->
         @selectedFactions = factions
-          
+
+      selectLeader: (leader) ->
+        @selectedLeader = leader
+
   export default Models
 </script>
