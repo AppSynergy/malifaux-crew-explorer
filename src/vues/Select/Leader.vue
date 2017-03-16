@@ -43,7 +43,7 @@
 
       tableData: () ->
         _.map @leaders, (leader) =>
-          [ leader.faction+":"+leader.name #ignored
+          [ @toIndex(leader)
           , @nameAndMaybeFaction(leader)
           , leader.cache
           , @listAttributes(leader.attributes, ', ')
@@ -51,9 +51,12 @@
 
     methods:
 
+        toIndex: (leader) ->
+          leader.faction + ':' + leader.name
+
         selectLeader: (row) ->
-          @selectedLeader = _.find @leaders, (x) ->
-            x.faction+":"+x.name == row[0]
+          @selectedLeader = _.find @leaders, (x) =>
+            @toIndex(x) == row[0]
           @$emit "selectedLeader", @selectedLeader
 
         filterByFaction: (models, results) ->
