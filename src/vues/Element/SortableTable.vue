@@ -19,7 +19,9 @@
       <tr v-for="row in sortedData"
         v-on:click="selectRow(row)"
         :class="{ selected: selectedRow == row }">
-        <td v-for="cell in tail(row)">{{ cell }}</td>
+        <td v-for="cell in tail(row)">
+          {{ cell }}
+        </td>
       </tr>
     </tbody>
   </table>

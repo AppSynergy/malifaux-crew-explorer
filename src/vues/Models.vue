@@ -56,8 +56,8 @@
     methods:
 
       filterandSortModels: (attr) ->
-        filteredModels = _.filter @models, (model) =>
-          _.contains model.attributes, attr
+        f = (model) -> _.contains model.attributes, attr
+        filteredModels = _.filter @models, f
         out = {}
         _.each filteredModels, (m) ->
           _.each m.factions, (f) ->

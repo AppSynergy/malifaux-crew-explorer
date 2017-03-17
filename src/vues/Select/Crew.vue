@@ -32,34 +32,53 @@
     props: [ 'leader', 'minions', 'enforcers', 'henchmen', 'peons' ]
 
     data: () ->
-      tableHeaders: ['Models', 'Station', 'Cost', 'Keywords']
+      tableHeaders: ['Models', 'Station', 'Cost', 'Rarity', 'Keywords']
       stations: ["Henchman", "Enforcer", "Minion", "Peon"]
 
     computed:
+
       hasLeader: () -> @leader != null
+
       crew: () ->
         _.flatten [
-          @addStation @henchmen, "Henchman"
-          @addStation @enforcers, "Enforcer"
-          @addStation @minions, "Minion"
-          @addStation @peons, "Peon"
+          @addCrew @henchmen, "Henchman"
+          @addCrew @enforcers, "Enforcer"
+          @addCrew @minions, "Minion"
+          @addCrew @peons, "Peon"
         ]
+
       tableData: () ->
         _.map @crew, (model) =>
           attrs = @listAttributes model.attributes, ', '
           [ model.faction+":"+model.name,
-            model.name, model.station, model.cost, attrs ]
+            model.name, model.station, model.cost,
+            @getRarity(model), attrs ]
 
     methods:
 
-      addStation: (models, station) ->
-        _.map models, (x) ->
-          _.extend x, {station: station}
+      addCrew: (models, station) ->
+        # Remove other master's totems
+        f = (x) => _.any(_.map x.attributes, (a) => _.all [
+          a.substring(0,9) == "Totem For",
+          a.substring(10) != @leader.name
+        ])
+        # Add station
+        g = (x) -> _.extend x, {station: station}
+        _.reject(models, f).map g
 
       listAttributes: (atts, interp) ->
-        _.reject atts, (x) =>
-          x.substring(0,4) == "Wave" || _.contains @stations, x
-        .join interp
+        f = (x) => _.any [
+          _.contains @stations, x
+          x.substring(0,4).match /[WR]a[rv]e/
+        ]
+        g = (x) -> x.replace /([A-Z])/g, ' $1'
+        _.reject(atts, f).map(g).join interp
+
+      getRarity: (model) ->
+        a = _.find model.attributes, (x) -> x.substring(0,4) == "Rare"
+        if a
+          a.substring(4,5)
+        else '∞'
 
   export default SelectCrew
 </script>

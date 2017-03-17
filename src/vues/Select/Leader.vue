@@ -74,9 +74,10 @@
             model.name
 
         listAttributes: (atts, interp) ->
-          _.reject atts, (x) ->
-            x.substring(0,4) == "Wave" || x == "Master"
-          .join interp
+          f = (x) -> x.substring(0,4) == "Wave" || x == "Master"
+          g = (x) -> x.replace /([A-Z])/g, ' $1'
+          _.reject(atts, f).map(g).join interp
+
 
   export default SelectLeader
 </script>
