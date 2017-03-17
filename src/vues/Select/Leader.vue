@@ -53,7 +53,7 @@
 
         forbiddenLeaders: (leaders) ->
           _.reject leaders, (x) ->
-            x.name == "Lord Chompy Bits"
+            _.contains ["Dismounted McCabe", "Lord Chompy Bits"], x.name
 
         toIndex: (leader) ->
           leader.faction + ':' + leader.name

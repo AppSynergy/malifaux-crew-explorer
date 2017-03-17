@@ -1,33 +1,44 @@
 <template>
   <div class="select-crew-vue mt-4" v-if="hasLeader">
 
-    <h2>Select Crew</h2>
+    <div class="row">
+      <div class="col col-9">
+        <h2>Select Crew</h2>
 
-    <ul class="list-group mt-4">
-      <li class="list-group-item">
-        <strong>Leader: </strong>
-        <span class="pl-2">{{ leader.name }}</span>
-      </li>
-      <li class="list-group-item">
-        <strong>Faction: </strong>
-        <span class="pl-2">{{ leader.faction }}</span>
-      </li>
-    </ul>
+        <ul class="list-group mt-4">
+          <li class="list-group-item">
+            <strong>Leader: </strong>
+            <span class="pl-2">{{ leader.name }}</span>
+          </li>
+          <li class="list-group-item">
+            <strong>Faction: </strong>
+            <span class="pl-2">{{ leader.faction }}</span>
+          </li>
+        </ul>
 
-    <sortable-table
-      :headers="tableHeaders"
-      :data="tableData"
-    ></sortable-table>
+        <sortable-table
+          :headers="tableHeaders"
+          :data="tableData"
+        ></sortable-table>
 
+      </div>
+      <div class="col col-3">
+        <crew-chosen
+          :chosen="[1,2,3]"
+        ></crew-chosen>
+      </div>
+
+    </div>
   </div>
 </template>
 
 <script lang="coffee">
   import SortableTable from '../Element/SortableTable.vue'
+  import CrewChosen from './CrewChosen.vue'
 
   SelectCrew =
 
-    components: { SortableTable }
+    components: { SortableTable, CrewChosen }
 
     props: [ 'leader', 'minions', 'enforcers', 'henchmen', 'peons' ]
 
