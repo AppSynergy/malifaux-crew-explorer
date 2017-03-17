@@ -39,7 +39,7 @@
         out = []
         if @soulstones > 25 then @filterByFaction @masters, out
         if @soulstones < 40 then @filterByFaction @henchmen, out
-        _.flatten out
+        @forbiddenLeaders _.flatten(out)
 
       tableData: () ->
         _.map @leaders, (leader) =>
@@ -50,6 +50,10 @@
           ]
 
     methods:
+
+        forbiddenLeaders: (leaders) ->
+          _.reject leaders, (x) ->
+            x.name == "Lord Chompy Bits"
 
         toIndex: (leader) ->
           leader.faction + ':' + leader.name
@@ -74,7 +78,11 @@
             model.name
 
         listAttributes: (atts, interp) ->
-          f = (x) -> x.substring(0,4) == "Wave" || x == "Master"
+          f = (x) -> _.any [
+            x.substring(0,4).match(/[WR]a[rv]e/),
+            x == "Master",
+            x == "Henchman"
+          ]
           g = (x) -> x.replace /([A-Z])/g, ' $1'
           _.reject(atts, f).map(g).join interp
 
