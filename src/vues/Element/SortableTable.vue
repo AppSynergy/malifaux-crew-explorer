@@ -4,6 +4,7 @@
       <tr>
         <th v-for="header in headers"
           v-on:click="sortBy(header)"
+          v-bind:class="{ sortUp: sortColumn == header && sortAscending }"
         ><span class="th">
           {{ header }}
           <i class="fa fa-caret-up pl-1"
@@ -64,6 +65,12 @@
 </script>
 
 <style lang="sass">
+  th:hover
+    cursor: s-resize
+    &.sortUp
+      cursor: n-resize
+  tr td
+    cursor: pointer
   span.th
     white-space: nowrap
 </style>
