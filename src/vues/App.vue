@@ -8,14 +8,15 @@
 
 <script lang="coffee">
   import Models from './Models.vue'
-  
-  App = 
+
+  App =
     name: 'app'
     components: { Models }
-    
+
   export default App
 </script>
 
 <style lang="sass">
   @import '../../node_modules/bootstrap/dist/css/bootstrap.css'
+  @import '../../node_modules/font-awesome/css/font-awesome.min.css'
 </style>

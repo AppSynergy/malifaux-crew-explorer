@@ -4,7 +4,14 @@
       <tr>
         <th v-for="header in headers"
           v-on:click="sortBy(header)"
-        >{{ header }}</th>
+        ><span class="th">
+          {{ header }}
+          <i class="fa fa-caret-up pl-1"
+            v-if="sortColumn == header && !sortAscending"></i>
+          <i class="fa fa-caret-down pl-1"
+            v-if="sortColumn == header && sortAscending"></i>
+        </span>
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -45,10 +52,18 @@
 
       sortBy: (header) ->
         @sortIndex = _.indexOf @headers, header
-        if @sortColumn == header then @sortAscending = !@sortAscending
-        else @sortColumn = header
+        if @sortColumn == header
+          @sortAscending = !@sortAscending
+        else
+          @sortAscending = true
+          @sortColumn = header
 
 
   export default SortableTable
 
 </script>
+
+<style lang="sass">
+  span.th
+    white-space: nowrap
+</style>
