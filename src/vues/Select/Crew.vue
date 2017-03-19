@@ -19,12 +19,14 @@
         <sortable-table
           :headers="tableHeaders"
           :data="tableData"
+          v-on:selectedRow="addToChosen"
         ></sortable-table>
 
       </div>
       <div class="col col-3">
         <crew-chosen
-          :chosen="[1,2,3]"
+          :chosen="crewChosen"
+          v-on:removeModel="removeFromChosen"
         ></crew-chosen>
       </div>
 
@@ -45,6 +47,7 @@
     data: () ->
       tableHeaders: ['Models', 'Station', 'Cost', 'Rarity', 'Keywords']
       stations: ["Henchman", "Enforcer", "Minion", "Peon"]
+      crewChosen: []
 
     computed:
 
@@ -66,6 +69,18 @@
             @getRarity(model), attrs ]
 
     methods:
+
+      addToChosen: (row) ->
+        model = _.find @crew, (x) =>
+          @toIndex(x) == row[0]
+        @crewChosen.push model
+
+      removeFromChosen: (model) ->
+        # todo, not all of them, just the one we clicked
+        @crewChosen = _.without @crewChosen, model
+
+      toIndex: (leader) ->
+        leader.faction + ':' + leader.name
 
       addCrew: (models, station) ->
         # Remove other master's totems
