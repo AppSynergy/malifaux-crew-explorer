@@ -18,11 +18,14 @@
 </template>
 
 <script lang="coffee">
+  import TableInterface from '../Element/TableInterface.coffee'
   import SortableTable from '../Element/SortableTable.vue'
 
   SelectLeader =
 
     components: { SortableTable }
+
+    mixins: [ TableInterface ]
 
     props: [ 'masters', 'henchmen', 'factions' ]
 
@@ -55,12 +58,8 @@
           _.reject leaders, (x) ->
             _.contains ["Dismounted McCabe", "Lord Chompy Bits"], x.name
 
-        toIndex: (leader) ->
-          leader.faction + ':' + leader.name
-
         selectLeader: (row) ->
-          @selectedLeader = _.find @leaders, (x) =>
-            @toIndex(x) == row[0]
+          @selectedLeader = @tableFind @leaders, row
           @$emit "selectedLeader", @selectedLeader
 
         filterByFaction: (models, results) ->

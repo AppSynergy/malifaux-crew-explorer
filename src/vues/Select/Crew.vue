@@ -35,12 +35,15 @@
 </template>
 
 <script lang="coffee">
+  import TableInterface from '../Element/TableInterface.coffee'
   import SortableTable from '../Element/SortableTable.vue'
   import CrewChosen from './CrewChosen.vue'
 
   SelectCrew =
 
     components: { SortableTable, CrewChosen }
+
+    mixins: [ TableInterface ]
 
     props: [ 'leader', 'minions', 'enforcers', 'henchmen', 'peons' ]
 
@@ -71,16 +74,12 @@
     methods:
 
       addToChosen: (row) ->
-        model = _.find @crew, (x) =>
-          @toIndex(x) == row[0]
+        model = @tableFind @crew, row
         @crewChosen.push model
 
       removeFromChosen: (model) ->
-        # todo, not all of them, just the one we clicked
-        @crewChosen = _.without @crewChosen, model
-
-      toIndex: (leader) ->
-        leader.faction + ':' + leader.name
+        index = @crewChosen.indexOf model
+        @crewChosen.splice index, 1
 
       addCrew: (models, station) ->
         # Remove other master's totems
