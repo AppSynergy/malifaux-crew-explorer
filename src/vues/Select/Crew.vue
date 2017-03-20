@@ -77,8 +77,8 @@
         model = @tableFind @crew, row
         @crewChosen.push model
 
-      removeFromChosen: (model) ->
-        index = @crewChosen.indexOf model
+      removeFromChosen: (index) ->
+        #index = @crewChosen.indexOf model
         @crewChosen.splice index, 1
 
       addCrew: (models, station) ->

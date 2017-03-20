@@ -2,8 +2,8 @@
   <div class="crew-chosen-vue">
     <ul class="list-group">
       <li class="list-group-item"
-        v-for="model in chosen"
-        v-on:click="removeModel(model)"
+        v-for="model, index in chosen"
+        v-on:click="removeModel(index)"
       >{{ model.name }} {{ model.cost }}</li>
     </ul>
   </div>
