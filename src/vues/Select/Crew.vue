@@ -67,7 +67,7 @@
       tableData: () ->
         _.map @crew, (model) =>
           attrs = @listAttributes model.attributes, ', '
-          [ model.faction+":"+model.name,
+          [ model.faction+":"+model.name, @classNames(model),
             model.name, model.station, model.cost,
             @getRarity(model), attrs ]
 

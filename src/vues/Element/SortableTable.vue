@@ -1,5 +1,5 @@
 <template>
-  <table class="mt-4 table table-bordered table-hover">
+  <table class="mt-4 table table-hover">
     <thead>
       <tr>
         <th v-for="header in headers"
@@ -15,10 +15,10 @@
         </th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="models">
       <tr v-for="row in sortedData"
         v-on:click="selectRow(row)"
-        :class="{ selected: selectedRow == row }">
+        v-bind:class="row[1]">
         <td v-for="cell in tail(row)">
           {{ cell }}
         </td>
@@ -41,13 +41,13 @@
 
     computed:
       sortedData: () ->
-        data = _.sortBy @data, (row) => row[@sortIndex + 1]
+        data = _.sortBy @data, (row) => row[@sortIndex + 2]
         if @sortAscending then data
         else data.reverse()
 
     methods:
 
-      tail: (x) -> _.tail x
+      tail: (x) -> _.tail _.tail(x)
 
       selectRow: (row) ->
         @selectedRow = row
@@ -67,12 +67,29 @@
 </script>
 
 <style lang="sass">
-  th:hover
-    cursor: s-resize
-    &.sortUp
-      cursor: n-resize
+
+  @import './Colors.sass'
+
+  html table.table thead
+    th
+      background-color: #444
+      color: white
+      border: none
+    th:hover
+      cursor: s-resize
+      &.sortUp
+        cursor: n-resize
   tr td
     cursor: pointer
   span.th
     white-space: nowrap
+
+  // Keyword Colors!
+
+  tbody.models tr
+    @each $faction, $color in $colors
+      &.#{$faction}
+        $tmpCol: lighten(desaturate($color, 23), 15)
+        border-bottom: 3px solid $tmpCol !important
+
 </style>

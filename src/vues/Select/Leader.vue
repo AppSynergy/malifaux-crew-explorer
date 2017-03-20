@@ -46,7 +46,7 @@
 
       tableData: () ->
         _.map @leaders, (leader) =>
-          [ @toIndex(leader)
+          [ @toIndex(leader), @classNames(leader)
           , @nameAndMaybeFaction(leader)
           , leader.cache
           , @listAttributes(leader.attributes, ', ')
