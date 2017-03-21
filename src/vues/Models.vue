@@ -78,11 +78,19 @@
         f = (model) -> _.contains model.attributes, attr
         filteredModels = _.filter @models, f
         out = {}
-        _.each filteredModels, (m) ->
+        _.each filteredModels, (m) =>
+
+          if _.contains m.attributes, 'Mercenary'
+            _.each @factions, (f) ->
+              out[f] = out[f] || []
+              n = _.extend _.omit(m, 'factions'), { faction: m.faction, cost: m.cost + " +1" }
+              out[f].push n
+
           _.each m.factions, (f) ->
             out[f] = out[f] || []
             n = _.extend _.omit(m, 'factions'), { faction: f }
             out[f].push n
+
         out
 
       selectFactions: (factions) ->
