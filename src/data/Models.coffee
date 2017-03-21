@@ -1,4 +1,4 @@
-Models = [
+export default [
 
   # BEGIN MODEL LIST - watch the formatting, please!
 
@@ -2524,5 +2524,3 @@ Models = [
 
   ## END MODEL LIST
 ]
-
-export default Models
