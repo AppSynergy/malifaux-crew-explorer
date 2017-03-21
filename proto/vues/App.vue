@@ -8,9 +8,11 @@
 
 <script lang="coffee">
   import Models from './Models.vue'
+
   App =
     name: 'app'
     components: { Models }
+
   export default App
 </script>
 
