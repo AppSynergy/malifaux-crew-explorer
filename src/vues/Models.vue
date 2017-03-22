@@ -1,9 +1,16 @@
 <template>
-  <div class="models-vue">
+  <div class="models-vue mt-4">
 
     <select-faction
       :factions="factions"
+      v-on:selectedFaction="updateFaction"
     ></select-faction>
+
+    <select-encounter-size></select-encounter-size>
+
+    <select-leader></select-leader>
+
+    <select-crew></select-crew>
 
   </div>
 </template>
@@ -12,18 +19,24 @@
   import AllModels from '../data/Models.coffee'
   import AllFactions from '../data/Factions.coffee'
   import SelectFaction from './Select/Faction.vue'
+  import SelectEncounterSize from './Select/EncounterSize.vue'
+  import SelectLeader from './Select/Leader.vue'
+  import SelectCrew from './Select/Crew.vue'
 
   Models =
 
     components:
-      { SelectFaction }
+      { SelectFaction, SelectEncounterSize, SelectLeader, SelectCrew }
+
+    data: () ->
+      faction: null
 
     computed:
       factions: () -> AllFactions
 
-    created: () ->
-      #console.log AllModels.length + " Models, "
-      #console.log AllFactions
+    methods:
+      updateFaction: (faction) ->
+        @faction = faction
 
 
 
