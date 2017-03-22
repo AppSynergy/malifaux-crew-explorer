@@ -1,14 +1,6 @@
 <template>
   <div class="select-faction-vue">
 
-    <div class="card">
-      <h2 class="card-header">
-        <span v-on:click="openPanel">Select a Faction</span>
-        <span class="pull-right"
-          v-if="selectedFaction">{{ selectedFaction.name }}</span>
-      </h2>
-    </div>
-
     <div id="SelectFactionPanel">
       <div class="row mt-4">
         <div v-for="faction, key in factions"
@@ -29,23 +21,16 @@
 
 <script lang="coffee">
 
-  import Animation from '../Mixin/Animation.coffee'
-
   SelectFaction =
 
-    mixins: [Animation]
     props: ['factions']
 
     data: () ->
       selectedFaction: null
 
     methods:
-      openPanel: () ->
-        @slideDown 'SelectFactionPanel'
       selectThisFaction: (faction) ->
-        @selectedFaction = faction
-        @$emit 'selectedFaction', @selectedFaction
-        @slideUp 'SelectFactionPanel'
+        @$emit 'selectedFaction', faction
 
   export default SelectFaction
 

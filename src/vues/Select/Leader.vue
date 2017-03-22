@@ -1,13 +1,22 @@
 <template>
   <div class="select-leader-vue">
-    <div class="card">
-      <h2 class="card-header">Select a Leader</h2>
+
+    <div id="SelectLeaderPanel" style="display:none">
+      LEADERS
+        <button class="btn" v-on:click="clickMe">Go away</button>
     </div>
+
   </div>
 </template>
 
 <script lang="coffee">
+
   SelectLeader =
-    props: []
+
+    methods:
+      clickMe: () ->
+        @$emit 'selectedLeader', { name: "Bob" }
+
   export default SelectLeader
+
 </script>

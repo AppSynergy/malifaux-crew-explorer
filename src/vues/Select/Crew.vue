@@ -1,8 +1,10 @@
 <template>
   <div class="select-crew-vue">
-    <div class="card">
-      <h2 class="card-header">Select a Crew</h2>
+
+    <div id="SelectCrewPanel" style="display:none">
+      CREW
     </div>
+
   </div>
 </template>
 
