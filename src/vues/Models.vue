@@ -2,6 +2,16 @@
   <div class="models-vue mt-4">
 
     <panel-select
+      :title="'Select an Encounter Size'"
+      :value="encounterSize"
+      v-on:openPanel="openPanel('SelectEncounterSizePanel')"
+    ></panel-select>
+
+    <select-encounter-size
+      v-on:selectedEncounterSize="updateEncounterSize"
+    ></select-encounter-size>
+
+    <panel-select
       :title="'Select a Faction'"
       :value="faction"
       v-on:openPanel="openPanel('SelectFactionPanel')"
@@ -11,16 +21,6 @@
       :factions="factions"
       v-on:selectedFaction="updateFaction"
     ></select-faction>
-
-    <panel-select
-      :title="'Select an Encounter Size'"
-      :value="encounterSize"
-      v-on:openPanel="openPanel('SelectEncounterSizePanel')"
-    ></panel-select>
-
-    <select-encounter-size
-      v-on:selectedEncounterSize="updateEncounterSize"
-    ></select-encounter-size>
 
     <panel-select
       :title="'Select a Leader'"
@@ -67,6 +67,7 @@
       faction: null
       encounterSize: null
       leader: null
+      crew: null
 
     computed:
       factions: () -> AllFactions
@@ -76,14 +77,14 @@
       openPanel: (panelId) ->
         @slideDown panelId
 
-      updateFaction: (faction) ->
-        @faction = faction
-        @slideUp 'SelectFactionPanel'
-        @slideDown 'SelectEncounterSizePanel'
-
       updateEncounterSize: (size) ->
         @encounterSize = size
         @slideUp 'SelectEncounterSizePanel'
+        @slideDown 'SelectFactionPanel'
+
+      updateFaction: (faction) ->
+        @faction = faction
+        @slideUp 'SelectFactionPanel'
         @slideDown 'SelectLeaderPanel'
 
       updateLeader: (leader) ->

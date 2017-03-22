@@ -3,7 +3,7 @@
 
     <div id="SelectLeaderPanel" style="display:none">
       LEADERS
-        <button class="btn" v-on:click="clickMe">Go away</button>
+        <button class="btn" v-on:click="clickMe">Done</button>
     </div>
 
   </div>

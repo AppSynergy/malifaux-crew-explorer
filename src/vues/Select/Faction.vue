@@ -1,7 +1,7 @@
 <template>
   <div class="select-faction-vue">
 
-    <div id="SelectFactionPanel">
+    <div id="SelectFactionPanel" style="display:none">
       <div class="row mt-4">
         <div v-for="faction, key in factions"
           v-on:click="selectThisFaction(faction)"
