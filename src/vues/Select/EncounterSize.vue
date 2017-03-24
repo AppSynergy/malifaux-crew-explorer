@@ -23,7 +23,7 @@
       </div>
 
       <div class="text-center">
-        <button class="btn btn-success my-4"
+        <button class="btn btn-primary my-4"
           v-on:click="clickDone">Ok</button>
       </div>
 
@@ -51,6 +51,16 @@
           max = x.soulstones.max >= @hiringSoulstones
           min && max
 
+      encounter: () ->
+        name: @hiringSoulstones + " soulstones"
+        value: @hiringSoulstones
+        leaders: @selectedEncounterSize.leader
+
+    watch:
+      encounter: () -> @updateEncounterSize()
+
+    mounted: () -> @updateEncounterSize()
+
     methods:
 
       getClass: (encounterSize) ->
@@ -68,12 +78,11 @@
       selectNamedEncounterSize: (encounterSize) ->
         @hiringSoulstones = encounterSize.soulstones.typical
 
+      updateEncounterSize: () ->
+        @$emit 'selectedEncounterSize', @encounter
+
       clickDone: () ->
-        obj =
-          name: @hiringSoulstones + " soulstones"
-          value: @hiringSoulstones
-          leaders: @selectedEncounterSize.leader
-        @$emit 'selectedEncounterSize', obj
+        @$emit 'selectedEncounterSizeDone', @encounter
 
   export default SelectEncounterSize
 

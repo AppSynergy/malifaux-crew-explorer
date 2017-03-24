@@ -9,6 +9,7 @@
 
     <select-encounter-size
       v-on:selectedEncounterSize="updateEncounterSize"
+      v-on:selectedEncounterSizeDone="updateEncounterSizeDone"
     ></select-encounter-size>
 
     <panel-select
@@ -91,6 +92,9 @@
           if x != panelId then @slideUp x
 
       updateEncounterSize: (size) ->
+        @encounterSize = size
+
+      updateEncounterSizeDone: (size) ->
         @encounterSize = size
         @slideUp @panels.encounterSize
         @slideDown @panels.faction

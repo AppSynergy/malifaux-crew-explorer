@@ -15,6 +15,7 @@
 </script>
 
 <style lang="sass">
-  @import '../../node_modules/bootstrap/dist/css/bootstrap.css'
+  $brand-primary: #5626A6
+  @import '../../node_modules/bootstrap/scss/bootstrap.scss'
   @import '../../node_modules/font-awesome/css/font-awesome.min.css'
 </style>

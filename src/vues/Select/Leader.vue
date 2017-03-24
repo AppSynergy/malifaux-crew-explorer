@@ -16,7 +16,7 @@
             </div>
 
             <div class="card-footer">
-              <button class="btn btn-success pull-right p-1"
+              <button class="btn btn-primary pull-right p-1"
                 v-on:click="selectLeader(leader)"
               >select</button>
             </div>
