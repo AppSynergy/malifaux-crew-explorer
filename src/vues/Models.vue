@@ -68,6 +68,11 @@
       encounterSize: null
       leader: null
       crew: null
+      panels:
+        encounterSize: 'SelectEncounterSizePanel'
+        faction: 'SelectFactionPanel'
+        leader: 'SelectLeaderPanel'
+        crew: 'SelectCrewPanel'
 
     computed:
       factions: () -> AllFactions
@@ -75,22 +80,27 @@
     methods:
 
       openPanel: (panelId) ->
+        @closeAllPanelsExcept panelId
         @slideDown panelId
+
+      closeAllPanelsExcept: (panelId) ->
+        Object.values(@panels).map (x) =>
+          if x != panelId then @slideUp x
 
       updateEncounterSize: (size) ->
         @encounterSize = size
-        @slideUp 'SelectEncounterSizePanel'
-        @slideDown 'SelectFactionPanel'
+        @slideUp @panels.encounterSize
+        @slideDown @panels.faction
 
       updateFaction: (faction) ->
         @faction = faction
-        @slideUp 'SelectFactionPanel'
-        @slideDown 'SelectLeaderPanel'
+        @slideUp @panels.faction
+        @slideDown @panels.leader
 
       updateLeader: (leader) ->
         @leader = leader
-        @slideUp 'SelectLeaderPanel'
-        @slideDown 'SelectCrewPanel'
+        @slideUp @panels.leader
+        @slideDown @panels.crew
 
       updateCrew: (crew) ->
         @crew = crew
