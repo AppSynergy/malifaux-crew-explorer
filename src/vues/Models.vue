@@ -29,6 +29,9 @@
     ></panel-select>
 
     <select-leader
+      :faction="faction"
+      :encounterSize="encounterSize"
+      :models="models"
       v-on:selectedLeader="updateLeader"
     ></select-leader>
 
@@ -76,6 +79,7 @@
 
     computed:
       factions: () -> AllFactions
+      models: () -> AllModels
 
     methods:
 

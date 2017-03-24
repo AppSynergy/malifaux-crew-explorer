@@ -26,6 +26,7 @@
         <button class="btn btn-success my-4"
           v-on:click="clickDone">Ok</button>
       </div>
+
     </div>
 
   </div>
@@ -68,7 +69,10 @@
         @hiringSoulstones = encounterSize.soulstones.typical
 
       clickDone: () ->
-        obj = { name: "SS: " + @hiringSoulstones }
+        obj =
+          name: "SS: " + @hiringSoulstones
+          value: @hiringSoulstones
+          leaders: @selectedEncounterSize.leader
         @$emit 'selectedEncounterSize', obj
 
   export default SelectEncounterSize
