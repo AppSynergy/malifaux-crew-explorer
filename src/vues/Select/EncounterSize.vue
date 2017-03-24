@@ -70,7 +70,7 @@
 
       clickDone: () ->
         obj =
-          name: "SS: " + @hiringSoulstones
+          name: @hiringSoulstones + " soulstones"
           value: @hiringSoulstones
           leaders: @selectedEncounterSize.leader
         @$emit 'selectedEncounterSize', obj

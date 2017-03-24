@@ -3,15 +3,26 @@
 
     <div id="SelectLeaderPanel" style="display:none">
 
-      <div v-if="encounterSize && faction">
-        <div class="btn" v-for="leader in availableLeaders">
-          {{ leader.name }}
-        </div>
-      </div>
+      <div class="row mt-4">
+        <div class="col col-3" v-for="leader in leaders">
+          <div class="leader-card card mb-4">
 
-      <div class="text-center">
-        <button class="btn btn-success my-4"
-          v-on:click="clickDone">Ok</button>
+            <div class="card-block">
+              <h5>{{ leader.name }}</h5>
+              <div class="leader-attributes">
+                <span class="leader-attribute"
+                  v-for="attr in leader.attributes">{{ attr }}</span>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <button class="btn btn-success pull-right p-1"
+                v-on:click="selectLeader(leader)"
+              >select</button>
+            </div>
+
+          </div>
+        </div>
       </div>
 
     </div>
@@ -25,22 +36,26 @@
 
   SelectLeader =
 
-    props: ['encounterSize', 'faction', 'models']
-
-    computed:
-
-      availableLeaders: () ->
-        _.filter @models, (model) =>
-          _.all [
-            _.contains model.factions, @faction.key
-            _.intersection(model.attributes, @encounterSize.leaders).length > 0
-          ]
+    props: ['leaders']
 
     methods:
-
-      clickDone: () ->
-        @$emit 'selectedLeader', { name: "Bob" }
+      selectLeader: (leader) ->
+        @$emit 'selectedLeader', leader
 
   export default SelectLeader
 
 </script>
+
+<style lang="sass">
+
+  .leader-card
+    position: relative
+    min-height: 12em
+
+  .leader-attribute
+    &:before
+      content: ' \00B7 '
+    &:first-child:before
+      content: none
+
+</style>

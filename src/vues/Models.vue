@@ -29,9 +29,7 @@
     ></panel-select>
 
     <select-leader
-      :faction="faction"
-      :encounterSize="encounterSize"
-      :models="models"
+      :leaders="availableLeaders"
       v-on:selectedLeader="updateLeader"
     ></select-leader>
 
@@ -53,6 +51,7 @@
   import AllModels from '../data/Models.coffee'
   import AllFactions from '../data/Factions.coffee'
   import Animation from './Mixin/Animation.coffee'
+  import ModelLogic from './Mixin/ModelLogic.coffee'
   import PanelSelect from './Panel/Select.vue'
   import SelectFaction from './Select/Faction.vue'
   import SelectEncounterSize from './Select/EncounterSize.vue'
@@ -61,7 +60,7 @@
 
   Models =
 
-    mixins: [Animation]
+    mixins: [Animation, ModelLogic]
 
     components:
       { PanelSelect, SelectFaction, SelectEncounterSize, SelectLeader, SelectCrew }
