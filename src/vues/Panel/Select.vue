@@ -3,8 +3,9 @@
 
     <div class="card">
       <div class="bg-primary border-bottom-0 rounded">
-        <h2 class="mb-0 py-2 px-4 text-white">
-          <span v-on:click="openPanel">{{ title }}</span>
+        <h2 class="mb-0 py-2 px-4 text-white"
+          v-on:click="openPanel">
+          <span>{{ title }}</span>
           <span class="pull-right"
             v-if="value">{{ value.name }}</span>
         </h2>
