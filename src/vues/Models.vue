@@ -51,9 +51,10 @@
 
   import AllModels from '../data/Models.coffee'
   import AllFactions from '../data/Factions.coffee'
-  import Animation from './Mixin/Animation.coffee'
+
   import ModelLogic from './Mixin/ModelLogic.coffee'
   import PanelSelect from './Panel/Select.vue'
+  import PanelController from './Panel/Controller.coffee'
   import SelectFaction from './Select/Faction.vue'
   import SelectEncounterSize from './Select/EncounterSize.vue'
   import SelectLeader from './Select/Leader.vue'
@@ -61,7 +62,7 @@
 
   Models =
 
-    mixins: [Animation, ModelLogic]
+    mixins: [ModelLogic, PanelController]
 
     components:
       { PanelSelect, SelectFaction, SelectEncounterSize, SelectLeader, SelectCrew }
@@ -71,11 +72,6 @@
       encounterSize: null
       leader: null
       crew: null
-      panels:
-        encounterSize: 'SelectEncounterSizePanel'
-        faction: 'SelectFactionPanel'
-        leader: 'SelectLeaderPanel'
-        crew: 'SelectCrewPanel'
 
     computed:
       factions: () -> AllFactions
@@ -83,31 +79,23 @@
 
     methods:
 
-      openPanel: (panelId) ->
-        @closeAllPanelsExcept panelId
-        @slideDown panelId
-
-      closeAllPanelsExcept: (panelId) ->
-        Object.values(@panels).map (x) =>
-          if x != panelId then @slideUp x
-
       updateEncounterSize: (size) ->
         @encounterSize = size
 
       updateEncounterSizeDone: (size) ->
         @encounterSize = size
-        @slideUp @panels.encounterSize
-        @slideDown @panels.faction
+        @closePanel @panels.encounterSize.id
+        @openPanel @panels.faction.id
 
       updateFaction: (faction) ->
         @faction = faction
-        @slideUp @panels.faction
-        @slideDown @panels.leader
+        @closePanel @panels.faction.id
+        @openPanel @panels.leader.id
 
       updateLeader: (leader) ->
         @leader = leader
-        @slideUp @panels.leader
-        @slideDown @panels.crew
+        @closePanel @panels.leader.id
+        @openPanel @panels.crew.id
 
       updateCrew: (crew) ->
         @crew = crew
