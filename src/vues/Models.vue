@@ -41,6 +41,7 @@
     ></panel-select>
 
     <select-crew
+      :crew="availableCrew"
       v-on:selectedCrew="updateCrew"
     ></select-crew>
 
@@ -91,6 +92,7 @@
         @faction = faction
         @closePanel @panels.faction.id
         @openPanel @panels.leader.id
+        if @leader && not @hasFaction(@leader) then @leader = null
 
       updateLeader: (leader) ->
         @leader = leader

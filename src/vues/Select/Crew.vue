@@ -2,14 +2,20 @@
   <div class="select-crew-vue">
 
     <div id="SelectCrewPanel" style="display:none">
-      CREW
+      <li v-for="model in crew">
+        {{ model.name }} {{ model.factions }} {{ model.cost }}
+      </li>
     </div>
 
   </div>
 </template>
 
 <script lang="coffee">
+
   SelectCrew =
-    props: []
+
+    props: [ 'crew' ]
+
   export default SelectCrew
+
 </script>

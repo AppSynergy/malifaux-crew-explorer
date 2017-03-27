@@ -13,14 +13,31 @@ ModelLogic =
       if @faction != null && @encounterSize != null
         _.filter @models, (model) =>
           _.all [
-            _.contains model.factions, @faction.key
+            @hasFaction model
             not _.contains @bannedLeaders, model.name
             _.intersection(model.attributes, @encounterSize.leaders).length > 0
           ]
         .map (x) => @filterLeaderAttributes x
       else []
 
+    availableCrew: () ->
+      if @faction != null && @leader != null
+        _.filter @models, (model) =>
+          _.all [
+            @hasFaction(model) || @hasAttribute(model, 'Mercenary')
+            not @hasAttribute model, 'Master'
+          ]
+
+      else []
+
   methods:
+
+    hasFaction: (model, faction = false) ->
+      key = if faction then faction.key else @faction.key
+      _.contains model.factions, key
+
+    hasAttribute: (model, attribute) ->
+      _.contains model.attributes, attribute
 
     filterLeaderAttributes: (model) ->
       atts = model.attributes
