@@ -38,6 +38,8 @@
 
   SelectEncounterSize =
 
+    props: ['panelOpen']
+
     data: () ->
       hiringSoulstones: 50
 

@@ -28,13 +28,14 @@ PanelController =
       panel = @find panelId
       @closeAllPanelsExcept panelId
       unless panel.open
-        @slideDown panelId
         panel.open = true
+        @slideDown panelId
 
     closePanel: (panelId) ->
       panel = @find panelId
-      @slideUp panelId
+      #if panel.open
       panel.open = false
+      @slideUp panelId
 
     closeAllPanelsExcept: (panelId) ->
       _.filter @panels, (panel) -> panelId != panel.id

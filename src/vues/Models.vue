@@ -8,6 +8,7 @@
     ></panel-select>
 
     <select-encounter-size
+      :panel-open="panels.encounterSize.open"
       v-on:selectedEncounterSize="updateEncounterSize"
       v-on:selectedEncounterSizeDone="updateEncounterSizeDone"
     ></select-encounter-size>
@@ -19,6 +20,7 @@
     ></panel-select>
 
     <select-faction
+      :panel-open="panels.faction.open"
       :factions="factions"
       v-on:selectedFaction="updateFaction"
     ></select-faction>
@@ -30,6 +32,8 @@
     ></panel-select>
 
     <select-leader
+      v-if="faction"
+      :panel-open="panels.leader.open"
       :leaders="availableLeaders"
       v-on:selectedLeader="updateLeader"
     ></select-leader>
@@ -41,6 +45,8 @@
     ></panel-select>
 
     <select-crew
+      v-if="leader && faction"
+      :panel-open="panels.crew.open"
       :crew="availableCrew"
       v-on:selectedCrew="updateCrew"
     ></select-crew>

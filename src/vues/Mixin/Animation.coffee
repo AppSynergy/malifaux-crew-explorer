@@ -1,19 +1,25 @@
 import Velocity from 'velocity-animate'
 
 Animation =
+
+  data: () ->
+    animation:
+      opts:
+        duration: 600
+
   methods:
 
     slideUp: (elementId) ->
-      element = document.getElementById elementId
-      opts =
-        duration: 600
-      Velocity element, 'slideUp', opts
+      if element = document.getElementById elementId
+        @animate element, 'slideUp'
 
     slideDown: (elementId) ->
-      element = document.getElementById elementId
-      opts =
-        duration: 600
-      Velocity element, 'slideDown', opts
+      if element = document.getElementById elementId
+        @animate element, 'slideDown'
 
+    animate: (element, method) ->
+      Velocity element, method, @animation.opts
+      #.then (b) -> console.log "DONE", b
+      #.catch (err) -> console.log "ERR", err
 
 export default Animation

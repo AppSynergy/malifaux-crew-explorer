@@ -1,7 +1,7 @@
 <template>
   <div class="select-leader-vue">
 
-    <div id="SelectLeaderPanel" style="display:none">
+    <div id="SelectLeaderPanel">
 
       <div class="row mt-4">
         <div class="col col-3" v-for="leader in leaders">
@@ -36,7 +36,7 @@
 
   SelectLeader =
 
-    props: ['leaders']
+    props: ['leaders', 'panelOpen']
 
     methods:
       selectLeader: (leader) ->

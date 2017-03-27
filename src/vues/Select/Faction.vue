@@ -1,7 +1,7 @@
 <template>
   <div class="select-faction-vue">
 
-    <div id="SelectFactionPanel" style="display:none">
+    <div id="SelectFactionPanel">
       <div class="row mt-4">
         <div v-for="faction, key in factions"
           v-on:click="selectThisFaction(faction)"
@@ -23,7 +23,7 @@
 
   SelectFaction =
 
-    props: ['factions']
+    props: ['factions', 'panelOpen']
 
     data: () ->
       selectedFaction: null

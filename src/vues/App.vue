@@ -15,6 +15,8 @@
 </script>
 
 <style lang="sass">
+  .d-none
+    display: none
   $brand-primary: #5626A6
   @import '../../node_modules/bootstrap/scss/bootstrap.scss'
   @import '../../node_modules/font-awesome/css/font-awesome.min.css'
