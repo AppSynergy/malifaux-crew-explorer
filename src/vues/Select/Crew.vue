@@ -22,7 +22,7 @@
           <h4 class="mb-0">{{ group.choice }}: {{ groupIndex.replace(',', '/') }}</h4>
         </div>
         <div class="card-block">
-          <smart-table :table-data="groupMembers"></smart-table>
+          <smart-table :table-data="filterTable(groupMembers)"></smart-table>
         </div>
       </div>
 
@@ -70,6 +70,13 @@
       getStation: (model) ->
         stations = ['Henchman', 'Enforcer', 'Minion', 'Peon']
         _.first _.intersection(model.attributes, stations)
+
+      filterTable: (data) ->
+        _.map data, (x) ->
+          name: x.name
+          faction: x.factions.join ', '
+          keywords: x.attributes.join ', '
+          cost: x.cost
 
   export default SelectCrew
 
